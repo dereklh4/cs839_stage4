@@ -198,6 +198,7 @@ predictions = ln.predict(table=K, exclude_attrs=['_id', 'ltable_ID', 'rtable_ID'
 
 # save set of matches between two tables
 matches = predictions.loc[predictions['predicted'] == 1]
+matches = C.loc[matches.loc[:,'_id'],:]
 matches.to_csv("matches.csv", index = False)
 
 # get a list of the indices to match
