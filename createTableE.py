@@ -195,10 +195,11 @@ K = em.impute_table(K,
 # take best classifier (linear regression) and output predictions (i.e. matches)
 predictions = ln.predict(table=K, exclude_attrs=['_id', 'ltable_ID', 'rtable_ID'], 
                         append=True, target_attr='predicted', inplace=False)
-    
-# merge predictions that were predicted as matches
-predictions.loc[predictions['predicted'] == 1].head()  
-    
+
+# save set of matches between two tables
+matches = predictions.loc[predictions['predicted'] == 1]
+matches.to_csv("matches.csv", index = False)
+
 # get a list of the indices to match
 metacriticIndexMatches = [int(removeChar(s))-1 for s in list(predictions.loc[predictions['predicted'] == 1,'ltable_ID'])]
 wikiIndexMatches = [int(removeChar(s))-1 for s in list(predictions.loc[predictions['predicted'] == 1,'rtable_ID'])]
