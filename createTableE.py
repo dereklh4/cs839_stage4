@@ -127,8 +127,8 @@ def merge_genre_or_label_or_producer(v1, v2):
     v2 = str.lower(str(v2))
     
     # remove brackets and single quotes for now
-    v1 = v1[v1.find("[")+1:v1.find("]")].replace("'",'')
-    v2 = v2[v2.find("[")+1:v2.find("]")].replace("'",'')
+    v1 = v1[v1.find("[")+1:v1.find("]")].replace("'",'').replace("-",' ')
+    v2 = v2[v2.find("[")+1:v2.find("]")].replace("'",'').replace("-",' ')
 
     # in case of multiple values for v1 or v2, we need to split by comma
     v1 = [x.strip() for x in v1.split(',')]
@@ -238,8 +238,8 @@ subsetWikiData = wikiData.iloc[leftoverWikiIndices, 1:]
 # lower case genre, label, and producer cell values
 toLowerCase = ['Genre', 'Label', 'Producer']
 for col in toLowerCase:
-    subsetMetaData[col] = subsetMetaData[col].str.lower()
-    subsetWikiData[col] = subsetWikiData[col].str.lower()
+    subsetMetaData[col] = subsetMetaData[col].str.lower().str.replace("-",' ')
+    subsetWikiData[col] = subsetWikiData[col].str.lower().str.replace("-",' ')
 
 
 # combine with E
